@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScribbleSwap - Your Sketchy Study Hub</title>
     <style>
-        /* Sketchy/Handwritten Font - Updated for better readability */
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Architects+Daughter&display=swap');
+        /* Sketchy/Handwritten Font */
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@300;400;700&display=swap');
 
         :root {
             --primary-color: #FFD700; /* Gold/Yellow like in the image */
@@ -18,7 +18,7 @@
         }
 
         body {
-            font-family: 'Architects Daughter', cursive; /* Czytelny, pisany odręcznie font */
+            font-family: 'Kalam', cursive;
             background-color: var(--background-color);
             color: var(--secondary-color);
             margin: 0;
@@ -31,8 +31,8 @@
             background-color: var(--primary-color);
             color: var(--secondary-color);
             padding: 10px 25px;
-            font-family: 'Caveat', cursive; /* Bardziej płynny font dla akcentów */
-            font-size: 1.5rem; /* Zwiększony rozmiar dla Caveat */
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.1rem;
             border: none;
             cursor: pointer;
             box-shadow: var(--sketch-line-thick) var(--sketch-line-thick) 0 0 var(--secondary-color);
@@ -58,8 +58,8 @@
         }
 
         .logo {
-            font-family: 'Caveat', cursive;
-            font-size: 2.5rem;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.8rem;
             color: var(--secondary-color);
         }
 
@@ -95,8 +95,8 @@
         }
 
         #hero h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 4.5rem;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3.5rem;
             margin-bottom: 10px;
         }
 
@@ -125,8 +125,8 @@
             border: var(--sketch-line-thin) dashed var(--secondary-color);
             padding: 10px 30px;
             cursor: pointer;
-            font-family: 'Caveat', cursive;
-            font-size: 1.8rem; /* Zwiększony rozmiar dla Caveat */
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.2rem;
             transition: background-color 0.3s;
             margin: 0 5px;
         }
@@ -159,8 +159,8 @@
             flex-grow: 1;
             padding: 10px;
             border: var(--sketch-line-thin) solid var(--secondary-color);
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.2rem;
+            font-family: 'Kalam', cursive;
+            font-size: 1rem;
             background-color: #fff;
         }
 
@@ -176,8 +176,8 @@
         }
 
         #trending h2 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5rem;
             margin-bottom: 40px;
             position: relative;
         }
@@ -213,21 +213,21 @@
         }
 
         .note-card h3 {
-            font-family: 'Caveat', cursive;
-            font-size: 2rem;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5rem;
             border-bottom: 1px dashed var(--secondary-color);
             padding-bottom: 5px;
         }
 
         .note-card p {
             margin: 5px 0;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
         }
         
         .note-card .rating {
-            font-family: 'Caveat', cursive;
+            font-family: 'Permanent Marker', cursive;
             color: #FF4500; /* Orange-red for rating */
-            font-size: 1.8rem;
+            font-size: 1.3rem;
             margin-top: 10px;
         }
 
@@ -235,7 +235,7 @@
         footer {
             text-align: center;
             padding: 20px;
-            font-size: 1rem;
+            font-size: 0.8rem;
         }
 
         /* --- Overlay for Hardcoded Result (Simulating AI Rating) --- */
@@ -263,15 +263,15 @@
         }
 
         .rating-card h2 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.8rem;
             color: #FF4500;
             margin-bottom: 20px;
         }
 
         .rating-card .final-score {
-            font-family: 'Caveat', cursive;
-            font-size: 5rem;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 4rem;
             color: var(--secondary-color);
             display: block;
             margin: 10px 0 30px;
@@ -290,14 +290,12 @@
         .rating-item {
             border-bottom: 1px dashed var(--secondary-color);
             padding-bottom: 5px;
-            font-size: 1.1rem;
         }
 
         .rating-item span {
             float: right;
-            font-family: 'Caveat', cursive;
+            font-family: 'Permanent Marker', cursive;
             color: #4CAF50;
-            font-size: 1.5rem;
         }
     </style>
 </head>
@@ -395,7 +393,7 @@
 
     <div id="result-overlay">
         <div class="rating-card">
-            <button class="sketchy-btn" style="float: right; background-color: #f44336; font-size: 1.5rem;" onclick="hideOverlay()">X</button>
+            <button class="sketchy-btn" style="float: right; background-color: #f44336;" onclick="hideOverlay()">X</button>
             <h2>🎉 Your Notes Are Market Ready!</h2>
             <p>Your "History of AI" notes have been analyzed and rated.</p>
             <span class="final-score">9.3 / 10</span>
