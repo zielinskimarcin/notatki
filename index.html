@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScribbleSwap - Your Sketchy Study Hub</title>
+    <style>
+        /* Sketchy/Handwritten Font */
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Kalam:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #FFD700; /* Gold/Yellow like in the image */
+            --secondary-color: #333333;
+            --background-color: #f7f7f7;
+            --border-style: 2px solid var(--secondary-color);
+            --sketch-line-thick: 5px;
+            --sketch-line-thin: 2px;
+        }
+
+        body {
+            font-family: 'Kalam', cursive;
+            background-color: var(--background-color);
+            color: var(--secondary-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- Sketchy Button Styling --- */
+        .sketchy-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 10px 25px;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--sketch-line-thick) var(--sketch-line-thick) 0 0 var(--secondary-color);
+            position: relative;
+            transition: all 0.1s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .sketchy-btn:hover {
+            box-shadow: var(--sketch-line-thin) var(--sketch-line-thin) 0 0 var(--secondary-color);
+            transform: translate(3px, 3px);
+        }
+
+        /* --- Header and Navigation --- */
+        header {
+            background-color: white;
+            padding: 20px 5%;
+            border-bottom: var(--border-style);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--secondary-color);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: var(--sketch-line-thin);
+            background-color: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* --- Main Hero Section --- */
+        #hero {
+            text-align: center;
+            padding: 100px 5%;
+            background-color: #ffffff;
+            border-bottom: var(--border-style);
+        }
+
+        #hero h1 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        #hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* --- Search Bar and Tabs --- */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: var(--sketch-line-thick) dashed var(--secondary-color);
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: var(--sketch-line-thin) dashed var(--secondary-color);
+            padding: 10px 30px;
+            cursor: pointer;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+            margin: 0 5px;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            border: var(--sketch-line-thick) solid var(--secondary-color);
+            box-shadow: 2px 2px 0 0 var(--secondary-color);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: var(--sketch-line-thin) solid var(--secondary-color);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="file"],
+        .input-group select {
+            flex-grow: 1;
+            padding: 10px;
+            border: var(--sketch-line-thin) solid var(--secondary-color);
+            font-family: 'Kalam', cursive;
+            font-size: 1rem;
+            background-color: #fff;
+        }
+
+        .input-group input[type="file"] {
+            border: var(--sketch-line-thin) dashed var(--secondary-color);
+        }
+
+        /* --- Trending Notes Section --- */
+        #trending {
+            padding: 50px 5%;
+            text-align: center;
+            border-bottom: var(--border-style);
+        }
+
+        #trending h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        #trending h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 10px auto 0;
+        }
+
+        .note-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .note-card {
+            width: 300px;
+            border: var(--sketch-line-thin) solid var(--secondary-color);
+            padding: 20px;
+            background-color: white;
+            box-shadow: 5px 5px 0 0 var(--primary-color);
+            text-align: left;
+            transition: box-shadow 0.2s;
+        }
+        
+        .note-card:hover {
+            box-shadow: 8px 8px 0 0 var(--primary-color);
+        }
+
+        .note-card h3 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.5rem;
+            border-bottom: 1px dashed var(--secondary-color);
+            padding-bottom: 5px;
+        }
+
+        .note-card p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+        
+        .note-card .rating {
+            font-family: 'Permanent Marker', cursive;
+            color: #FF4500; /* Orange-red for rating */
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* --- Overlay for Hardcoded Result (Simulating AI Rating) --- */
+        #result-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            padding-top: 50px;
+        }
+
+        .rating-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border: var(--sketch-line-thick) solid var(--secondary-color);
+            padding: 40px;
+            box-shadow: 10px 10px 0 0 var(--primary-color);
+            text-align: center;
+        }
+
+        .rating-card h2 {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.8rem;
+            color: #FF4500;
+            margin-bottom: 20px;
+        }
+
+        .rating-card .final-score {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 4rem;
+            color: var(--secondary-color);
+            display: block;
+            margin: 10px 0 30px;
+            border: 5px double var(--primary-color);
+            padding: 10px;
+        }
+
+        .rating-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .rating-item {
+            border-bottom: 1px dashed var(--secondary-color);
+            padding-bottom: 5px;
+        }
+
+        .rating-item span {
+            float: right;
+            font-family: 'Permanent Marker', cursive;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ScribbleSwap</div>
+        <nav>
+            <a href="#">Products</a>
+            <a href="#">Pricing</a>
+            <a href="#">Community</a>
+        </nav>
+        <button class="sketchy-btn">Login / Sign Up</button>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Turn your notes into cash!</h1>
+            <p>Get AI-rated, sell them on the Marketplace, and buy the best study materials.</p>
+
+            <div class="search-container">
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('sell-tab')">Sell your Notes</button>
+                    <button class="tab-btn" onclick="showTab('buy-tab')">Buy Notes</button>
+                </div>
+
+                <div id="sell-tab" class="tab-content active">
+                    <p>Upload your document and get an instant AI Rating.</p>
+                    <div class="input-group">
+                        <input type="file" id="note-file" accept=".pdf,.doc,.docx" required>
+                        <button class="sketchy-btn" onclick="simulateRating()">GET RATING</button>
+                    </div>
+                </div>
+
+                <div id="buy-tab" class="tab-content">
+                    <p>Find the best study materials, rated by AI and reviewed by peers.</p>
+                    <div class="input-group">
+                        <select>
+                            <option value="">Select University...</option>
+                            <option value="harvard">Harvard</option>
+                            <option value="bocconi">Bocconi</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <select>
+                            <option value="">Select Subject...</option>
+                            <option value="econ">Economics</option>
+                            <option value="ct">Critical Thinking</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <button class="sketchy-btn">SEARCH</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trending">
+            <h2>🔥 Trending Notes in the Marketplace</h2>
+            <div class="note-grid">
+                <div class="note-card">
+                    <h3>Economics 101: Microfoundations</h3>
+                    <p><strong>University:</strong> Harvard University</p>
+                    <p><strong>Lecturer:</strong> Michael Jordan</p>
+                    <p><strong>Pages:</strong> 45</p>
+                    <div class="rating">AI Rating: 9.5 / 10</div>
+                    <p class="price">Price: 5.99 EUR</p>
+                    <button class="sketchy-btn" style="width: 100%; margin-top: 15px;">BUY NOW</button>
+                </div>
+
+                <div class="note-card">
+                    <h3>Critical Thinking & Logic</h3>
+                    <p><strong>University:</strong> Bocconi University</p>
+                    <p><strong>Lecturer:</strong> Dexter John</p>
+                    <p><strong>Pages:</strong> 30</p>
+                    <div class="rating">AI Rating: 9.1 / 10</div>
+                    <p class="price">Price: 4.50 EUR</p>
+                    <button class="sketchy-btn" style="width: 100%; margin-top: 15px;">BUY NOW</button>
+                </div>
+                
+                <div class="note-card">
+                    <h3>Advanced Quantum Physics</h3>
+                    <p><strong>University:</strong> MIT</p>
+                    <p><strong>Lecturer:</strong> E. Sheldon</p>
+                    <p><strong>Pages:</strong> 120</p>
+                    <div class="rating">AI Rating: 9.8 / 10</div>
+                    <p class="price">Price: 10.99 EUR</p>
+                    <button class="sketchy-btn" style="width: 100%; margin-top: 15px;">BUY NOW</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ScribbleSwap. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    </footer>
+
+    <div id="result-overlay">
+        <div class="rating-card">
+            <button class="sketchy-btn" style="float: right; background-color: #f44336;" onclick="hideOverlay()">X</button>
+            <h2>🎉 Your Notes Are Market Ready!</h2>
+            <p>Your "History of AI" notes have been analyzed and rated.</p>
+            <span class="final-score">9.3 / 10</span>
+
+            <div class="rating-grid">
+                <div class="rating-item">Readability: <span>5/5</span></div>
+                <div class="rating-item">Material Coverage: <span>4/5</span></div>
+                <div class="rating-item">Subject Matter: <span>5/5</span></div>
+                <div class="rating-item">Originality: <span>4/5</span></div>
+            </div>
+
+            <h3>Ready to Sell?</h3>
+            <p>Set your price and list your notes immediately on the Marketplace!</p>
+            <div class="input-group">
+                <input type="text" placeholder="Set Price (e.g., 4.99 EUR)" style="flex-grow: 2;">
+                <button class="sketchy-btn" style="background-color: #4CAF50;">LIST ON MARKETPLACE</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Deactivate all buttons and content
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Activate the selected button and content
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function simulateRating() {
+            const fileInput = document.getElementById('note-file');
+            if (fileInput.files.length === 0) {
+                alert('Please select a file to upload!');
+                return;
+            }
+            // Show the hardcoded result card
+            document.getElementById('result-overlay').style.display = 'block';
+        }
+
+        function hideOverlay() {
+            document.getElementById('result-overlay').style.display = 'none';
+        }
+
+        // Initialize to show the Sell tab by default (though HTML already handles this)
+        // document.addEventListener('DOMContentLoaded', () => showTab('sell-tab'));
+    </script>
+</body>
+</html>
